@@ -11,8 +11,8 @@ namespace Question_simple
         static void Swap(ref int a, ref int b)
         {
             int c = a; // 1
-            a = b; // 
-            b = c;
+            a = b; // 2
+            b = c; // 1
         }
         static void Main(string[] args)
         {
