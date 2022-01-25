@@ -8,43 +8,38 @@ namespace Question_simple
 {
     class Program
     {
-        // ﻿가장 큰 값을 반환하는
+        // 입력받은 16진수를 10진수로 변경하기
         static int GetHighestScore(int[] scores)
         {
-            int Max = 0;
+            string number = Console.ReadLine();
+            //int number2 = int.Parse(Console.ReadLine());
+            int[] arr = new int[number.Length];
 
-            for(int i = 0; i < scores.Length; i++)
+            int temp = 1;
+            int[] calculate = new int[number.Length];
+            int result = 0;
+
+            for (int i = 0; i < number.Length; i++) // arr 배열크기 만큼 도는 for문
             {
-                if(Max < scores[i])
-                {
-                    Max = scores[i];
-                }
+                    arr[i] = int.Parse(number[i].ToString()); // arr 배열에 입력한 number하나씩 잘라서 넣기           
             }
 
-            Console.WriteLine(Max);
-            return Max;
-        }
-        //﻿ 평균 값을 반환하는
-        static int GetAverageScores(int[] scores)
-        {
-            return 0;
-        }
-        // ﻿배열에서 내가 원하는 값이 있는지 없는지 찾기 있다면 몇번째에 있는지 반환하고 없으면 -1을 반환하기
-        static int GetIndexOf(int[] scores, int value)
-        {
+            int num = number.Length - 1;
+            for (int i = 0; i < number.Length; i++) // 하나씩 들어가진 배열 값 계산하기
+            {
+                for (int j = 0; j < num; j++)
+                {
+                    temp *= 16;
+                }
+                calculate[i] = temp * arr[i];
+                temp = 1;
+                num--;
+            }
 
-        }
-        // ﻿배열을 Sort을 이용해서 호출하면 작은 것부터 큰 순서대로 출력하는 함수
-        static void Sort(int[] scores)
-        {
-
-        }
-
-        static void Main(string[] args)
-        {
-            int[] scores = new int[5] { 10, 30, 40, 20, 50 };
-
-            GetHighestScore();
-        }
+            for (int i = 0; i < number.Length; i++)
+            {
+                result += calculate[i];
+            }
+            Console.WriteLine($"0X{result}");
     }
 }
