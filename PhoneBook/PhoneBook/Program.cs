@@ -5,25 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 
 /* 전화번호부 만들기
-    삭제, 추가, 수정이 가능하도록*/
+    삭제, 추가, 수정이 가능하도록
+    Key : 전화번호
+    Value : 이름
+*/
 
 namespace PhoneBook
 {
     class PhoneBook
     {
-        const int MAX_SIZE = 5;
-
-        string[] name = new string[MAX_SIZE];
-        string[] phoneNumber = new string[MAX_SIZE];
+        Dictionary<int, string> dic = new Dictionary<int, string>();
 
         public void EnterSign()
         {
             Console.WriteLine("\n" + "*---             전화번호부             ---*");
-            Console.WriteLine($"*--- 최대 {MAX_SIZE}개의 전화번호가 저장됩니다 ---*");
-            Console.WriteLine("*--- 1. 전화번호부 검색하기             ---*");
-            Console.WriteLine("*--- 2. 이름 + 전화번호 추가하기        ---*");
-            Console.WriteLine("*--- 3. 이름 + 전화번호 수정하기        ---*");
-            Console.WriteLine("*--- 4. 이름 + 전화번호 삭제하기        ---*" + "\n");
+            Console.WriteLine($"*--- 최대 무한개의 전화번호가 저장됩니다 ---*");
+            Console.WriteLine("*---  1. 전화번호부 검색하기              ---*");
+            Console.WriteLine("*---  2. 이름 + 전화번호 추가하기         ---*");
+            Console.WriteLine("*---  3. 이름 + 전화번호 수정하기         ---*");
+            Console.WriteLine("*---  4. 이름 + 전화번호 삭제하기         ---*" + "\n");
         }
         public void Find()
         {
@@ -33,26 +33,31 @@ namespace PhoneBook
             Console.WriteLine(" 3. 전화번호부 전체출력");
             int find = int.Parse(Console.ReadLine());
 
-            int _number = -1;
-
             if (find == 1) // 이름으로 찾기
             {
                 Console.WriteLine(" *이름으로 전화번호 찾기입니다.");
                 Console.WriteLine(" *찾으실 전화번호 이름을 입력해주세요.");
                 string findName = Console.ReadLine();
 
-                for (int i = 0; i < MAX_SIZE; i++)
+                bool found = false;
+                int findNumber = 0;
+
+                // 모든 딕셔너리를 다 열어보면서 Value가 있는지 찾기
+                foreach (KeyValuePair<int, string> pair in dic)
                 {
-                    if (findName == name[i])
+                    if (findName == pair.Value)
                     {
-                        _number = i;
+                        found = true;
+                        findNumber = pair.Key;
                         break;
                     }
                 }
-                if (_number != -1)
+
+                if (found == true)
                 {
-                    Console.WriteLine($" *{name[_number]}*님의 전화번호는");
-                    Console.WriteLine($" *{phoneNumber[_number]}* 입니다");
+                    Console.WriteLine($" *{findName}*님의 전화번호는");
+                    Console.WriteLine($" *{findNumber}* 입니다");
+
                 }
                 else
                     Console.WriteLine(" *입력하신 이름에 저장된 전화번호가 없습니다.");
@@ -61,38 +66,28 @@ namespace PhoneBook
             {
                 Console.WriteLine(" *전화번호로 이름찾기 입니다.");
                 Console.WriteLine(" *찾으실 이름의 전화번호를 입력해주세요.");
-                string findPhoneNumber = Console.ReadLine();
+                int findPhoneNumber = int.Parse(Console.ReadLine());
 
-                for (int i = 0; i < MAX_SIZE; i++)
+                string name = null;
+                bool found = dic.TryGetValue(findPhoneNumber, out name);
+
+                if (found == true) // 전화번홀를 찾았을 때
                 {
-                    if (findPhoneNumber == phoneNumber[i])
-                    {
-                        _number = i;
-                        break;
-                    }
-                      
-                }
-                if (_number != -1)
-                {
-                    Console.WriteLine($" *{name[_number]}*님의 전화번호는");
-                    Console.WriteLine($" *{phoneNumber[_number]}* 입니다");
+                    Console.WriteLine($" *{name}*님의 전화번호는");
+                    Console.WriteLine($" *{findPhoneNumber}* 입니다");
                 }
                 else
-                    Console.WriteLine(" *입력하신 전화번호에 저장된 전화번호가 없습니다.");
+                    Console.WriteLine(" *입력하신 전화번호에 저장된 이름이 없습니다.");
             }
-            else if(find == 3)
+            else if (find == 3)
             {
-                for(int i = 0; i < MAX_SIZE; i++)
+                foreach (KeyValuePair<int, string> pair in dic)
                 {
-                     _number = i;
-
-                    if (name[_number] != null)
-                    {
-                        Console.WriteLine($"[{_number + 1}]번방의 {name[_number]}님 전화번호 : {phoneNumber[_number]} ");
-                    }                   
+                    Console.WriteLine($" *{pair.Value}*님의 전화번호는");
+                    Console.WriteLine($" *{pair.Key}* 입니다");
                 }
             }
-            else 
+            else
                 Console.WriteLine(" *숫자를 잘못 입력하셨습니다.");
         }
 
@@ -102,28 +97,20 @@ namespace PhoneBook
             Console.WriteLine(" *추가할 이름을 입력해주세요.");
             string AddName = Console.ReadLine();
 
-            int _number = -1;
-
-            for (int i = 0; i < MAX_SIZE; i++)
-            {
-                if (name[i] == null)
-                {
-                    name[i] = AddName;
-                    _number = i;
-                    break;
-                }
-            }
-            if (_number == -1) // MAX_SIZE번째의 전화번호가 넘으면
-            {
-                Console.WriteLine($" *{MAX_SIZE}개의 전화번호부가 가득 찼습니다");
-                return; // 함수 끝내기
-            }
-
             Console.WriteLine(" *추가할 전화번호를 입력해주세요.");
-            phoneNumber[_number] = Console.ReadLine();
+            int Addnumber = int.Parse(Console.ReadLine());
 
-            Console.WriteLine($" 입력하신 *{name[_number]}*님의 전화번호");
-            Console.WriteLine($" *{phoneNumber[_number]}*이 추가되었습니다");
+            bool found = dic.ContainsKey(Addnumber);
+
+            if (found == false) // Addnumber와 같은 번호가 없을 때
+            {
+                dic.Add(Addnumber, AddName);
+
+                Console.WriteLine($" 입력하신 *{AddName}*님의 전화번호");
+                Console.WriteLine($" *{Addnumber}*이 추가되었습니다");
+            }
+            else
+                Console.WriteLine("현재 입력하신 전화번호는 존재합니다");
         }
 
         public void Correct()
@@ -141,27 +128,35 @@ namespace PhoneBook
                 Console.WriteLine(" *수정하실 전화번호 이름을 입력해주세요.");
                 string findName = Console.ReadLine();
 
-                // for문은 입력한 findName와 name배열에 있는 방의 이름이 같은 것을 찾아 그 방의 번호를 _number에 넣어주는 for문
-                for (int i = 0; i < MAX_SIZE; i++)
+                bool found = false;
+                int findNumber = 0;
+
+                // 모든 딕셔너리를 다 열어보면서 Value(이름)가 있는지 찾기
+                foreach (KeyValuePair<int, string> pair in dic)
                 {
-                    if (findName == name[i])
+                    if (findName == pair.Value)
                     {
-                        _number = i;
+                        found = true;
+                        findNumber = pair.Key;
                         break;
                     }
                 }
-                if (_number != -1)
+                
+                if (found == true)
                 {
-                    Console.WriteLine($" {name[_number]}님의 이름 + 전화번호를 수정합니다");
+                    Console.WriteLine($" {findName}님의 이름 + 전화번호를 수정합니다");
                     Console.WriteLine(" *수정할 이름을 입력해주세요.");
                     string correctionName = Console.ReadLine();
-                    name[_number] = correctionName;
 
                     Console.WriteLine(" *수정할 전화번호를 입력해주세요.");
-                    phoneNumber[_number] = Console.ReadLine();
+                    int correctionNumber= int.Parse(Console.ReadLine());
 
-                    Console.WriteLine($" 수정된 이름은 *{name[_number]}* 입니다");
-                    Console.WriteLine($" 수정된 전화번호는 *{phoneNumber[_number]}* 입니다");
+                    dic.Remove(findNumber);
+
+                    dic.Add(correctionNumber, correctionName);                                                        
+
+                    Console.WriteLine($" 수정된 이름은 *{correctionNumber}* 입니다");
+                    Console.WriteLine($" 수정된 전화번호는 *{correctionName}* 입니다");
                 }
                 else
                     Console.WriteLine(" *입력하신 이름의 저장되어있는 전화번호가 없습니다.");
@@ -170,28 +165,26 @@ namespace PhoneBook
             {
                 Console.WriteLine(" *전화번호로 이름 수정하기 입니다.");
                 Console.WriteLine(" *수정하실 이름의 전화번호를 입력해주세요.");
-                string findPhoneNumber = Console.ReadLine();
+                int findPhoneNumber = int.Parse(Console.ReadLine());
 
-                for (int i = 0; i < MAX_SIZE; i++)
+                string name = null; // 원래 쓰레기
+                bool found = dic.TryGetValue(findPhoneNumber, out name);
+                                               
+                if (found == true)
                 {
-                    if (findPhoneNumber == phoneNumber[i])
-                    {
-                        _number = i;
-                        break;
-                    }
-                }
-                if (_number != -1)
-                {
-                    Console.WriteLine($" {phoneNumber[_number]}의 이름 + 전화번호를 수정합니다");
+                    Console.WriteLine($" {findPhoneNumber}의 이름 + 전화번호를 수정합니다");
                     Console.WriteLine(" *수정할 이름을 입력해주세요.");
                     string correctionName = Console.ReadLine();
-                    name[_number] = correctionName;
 
                     Console.WriteLine(" *수정할 전화번호를 입력해주세요.");
-                    phoneNumber[_number] = Console.ReadLine();
+                    int correctionNumber = int.Parse(Console.ReadLine());
 
-                    Console.WriteLine($" 수정된 이름은 *{name[_number]}* 입니다");
-                    Console.WriteLine($" 수정된 전화번호는 *{phoneNumber[_number]}* 입니다");
+                    dic.Remove(findPhoneNumber);
+
+                    dic.Add(findPhoneNumber, correctionName);
+
+                    Console.WriteLine($" 수정된 이름은 *{correctionName}* 입니다");
+                    Console.WriteLine($" 수정된 전화번호는 *{findPhoneNumber}* 입니다");
                 }
                 else
                     Console.WriteLine(" *입력하신 전화번호의 저장되어있는 이름이 없습니다.");
@@ -215,15 +208,21 @@ namespace PhoneBook
                 Console.WriteLine(" *삭제하고 싶은 이름을 입력해주세요.");
                 string findName = Console.ReadLine();
 
-                for (int i = 0; i < MAX_SIZE; i++)
+                bool found = false;
+                int findNumber = 0;
+
+                // 모든 딕셔너리를 다 열어보면서 Value가 있는지 찾기
+                foreach (KeyValuePair<int, string> pair in dic)
                 {
-                    if (findName == name[i])
+                    if (findName == pair.Value)
                     {
-                        _number = i;
+                        found = true;
+                        findNumber = pair.Key;
                         break;
                     }
                 }
-                if (_number != -1)
+
+                if (found == true)
                 {
                     Console.WriteLine($" 정말로 {findName}님의 이름 + 전화번호를 삭제하시겠습니까?");
                     Console.WriteLine(" 1. 네");
@@ -232,8 +231,7 @@ namespace PhoneBook
 
                     if (really == 1)
                     {
-                        name[_number] = null;
-                        phoneNumber[_number] = null;
+                        dic.Remove(findNumber);
                         Console.WriteLine($" 이름이 {findName}님이신 이름 + 전화번호를 삭제합니다.");
                     }
                     else if (really == 2)
@@ -250,17 +248,12 @@ namespace PhoneBook
             {
                 Console.WriteLine(" *전화번호로 이름 + 전화번호 삭제하기 입니다.");
                 Console.WriteLine(" *삭제하실 전화번호를 입력해주세요.");
-                string findPhoneNumber = Console.ReadLine();
+                int findPhoneNumber = int.Parse(Console.ReadLine());
 
-                for (int i = 0; i < MAX_SIZE; i++)
-                {
-                    if (findPhoneNumber == phoneNumber[i])
-                    {
-                        _number = i;
-                        break;
-                    }
-                }
-                if (_number != -1)
+                string name = null;
+                bool found = dic.TryGetValue(findPhoneNumber, out name);
+
+                if (found == true)
                 {
                     Console.WriteLine($" 정말로 {findPhoneNumber}님의 이름 + 전화번호를 삭제하시겠습니까?");
                     Console.WriteLine(" 1. 네");
@@ -269,8 +262,7 @@ namespace PhoneBook
 
                     if (really == 1)
                     {
-                        name[_number] = null;
-                        phoneNumber[_number] = null;
+                        dic.Remove(findPhoneNumber);
                         Console.WriteLine($" 전화번호가 {findPhoneNumber}님이신 이름 + 전화번호를 삭제합니다.");
                     }
                     else if (really == 2)
