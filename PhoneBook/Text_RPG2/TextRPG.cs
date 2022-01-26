@@ -6,10 +6,16 @@ using System.Threading.Tasks;
 
 namespace Text_RPG2
 {
-    class Program
+    class TextRPG
     {
         static void Main(string[] args)
         {
+            Game gmae = new Game();
+
+            while (true)
+            {
+                gmae.Process();
+            }
         }
     }
 }

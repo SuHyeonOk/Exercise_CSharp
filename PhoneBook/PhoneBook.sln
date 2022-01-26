@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook", "PhoneBook\Phon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator", "Calculator\Calculator.csproj", "{FE6477F6-930F-4213-888F-B70DBD06447B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Text_RPG2", "Text_RPG2\Text_RPG2.csproj", "{8D589703-6476-4AB0-AE1C-6F5B0B034271}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FE6477F6-930F-4213-888F-B70DBD06447B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE6477F6-930F-4213-888F-B70DBD06447B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE6477F6-930F-4213-888F-B70DBD06447B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D589703-6476-4AB0-AE1C-6F5B0B034271}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D589703-6476-4AB0-AE1C-6F5B0B034271}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D589703-6476-4AB0-AE1C-6F5B0B034271}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D589703-6476-4AB0-AE1C-6F5B0B034271}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
