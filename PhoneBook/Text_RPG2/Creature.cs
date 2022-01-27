@@ -38,7 +38,7 @@ namespace Text_RPG2
         public int GetAttack() { return attack; }
 
         public bool IsDead() { return hp <= 0; }
-        public void OnDamaged(int damage)
+        public void OnDamaged(int damage) // ref을 쓰던 안 쓰던 상관없지만, 쓰는 것이 더 좋을 수도 있다
         {
             hp -= damage;
             if (hp < 0)

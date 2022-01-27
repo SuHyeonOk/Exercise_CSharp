@@ -10,11 +10,11 @@ namespace Text_RPG2
     {
         static void Main(string[] args)
         {
-            Game gmae = new Game();
+            Game game = new Game();
 
             while (true)
             {
-                gmae.Process();
+                game.Process();
             }
         }
     }
