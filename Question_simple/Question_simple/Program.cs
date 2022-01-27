@@ -8,38 +8,28 @@ namespace Question_simple
 {
     class Program
     {
-        // 입력받은 16진수를 10진수로 변경하기
-        static int GetHighestScore(int[] scores)
+         // 10진수를 16진수로 바꾸기
+        static void Main(string[] args)
         {
-            string number = Console.ReadLine();
-            //int number2 = int.Parse(Console.ReadLine());
-            int[] arr = new int[number.Length];
+            int number = 25415;
+            int result = number; // 몫
+            int result2 = 0; // 나머지
 
-            int temp = 1;
-            int[] calculate = new int[number.Length];
-            int result = 0;
-
-            for (int i = 0; i < number.Length; i++) // arr 배열크기 만큼 도는 for문
+            // number가 16보다 작아질때 까지 반복한다
+            while (true)
             {
-                    arr[i] = int.Parse(number[i].ToString()); // arr 배열에 입력한 number하나씩 잘라서 넣기           
-            }
-
-            int num = number.Length - 1;
-            for (int i = 0; i < number.Length; i++) // 하나씩 들어가진 배열 값 계산하기
-            {
-                for (int j = 0; j < num; j++)
+                if (result > 16) // number에서 16을 나눈 것이 16보다 크니?
                 {
-                    temp *= 16;
-                }
-                calculate[i] = temp * arr[i];
-                temp = 1;
-                num--;
-            }
+                    result2 = result % 16;
+                    result = result / 16;
 
-            for (int i = 0; i < number.Length; i++)
-            {
-                result += calculate[i];
+                    Console.WriteLine(result2);
+
+                    if(result < 16)
+                      Console.WriteLine(result);
+                }
+                else
+                    break;
             }
-            Console.WriteLine($"0X{result}");
     }
 }
